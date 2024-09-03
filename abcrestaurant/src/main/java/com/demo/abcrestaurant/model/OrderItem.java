@@ -28,11 +28,11 @@ public class OrderItem {
         this.id = id;
     }
 
-    public ReservationOrder getOrder() {
+    public ReservationOrder getReservationOrder() {
         return reservationOrder;
     }
 
-    public void setOrder(ReservationOrder reservationOrder) {
+    public void setReservationOrder(ReservationOrder reservationOrder) {
         this.reservationOrder = reservationOrder;
     }
 
