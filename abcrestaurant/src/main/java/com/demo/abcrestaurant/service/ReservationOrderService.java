@@ -73,4 +73,31 @@ public class ReservationOrderService {
         );
     }
 
+    public ReservationOrderDTO updateReservation(ReservationOrderDTO reservationOrderDTO) {
+        ReservationOrder reservationOrder = new ReservationOrder();
+        reservationOrder.setDateTime(reservationOrderDTO.getDateTime());
+        reservationOrder.setType(reservationOrderDTO.getType());
+        reservationOrder.setStatus(ReservationOrder.OrderStatus.COMPLETED);
+        reservationOrder.setGuestName(reservationOrderDTO.getGuestName());
+        reservationOrder.setGuestEmail(reservationOrderDTO.getGuestEmail());
+        reservationOrder.setGuestPhone(reservationOrderDTO.getGuestPhone());
+        reservationOrder.setNumberOfPeople(reservationOrderDTO.getNumberOfPeople());
+
+        reservationOrder = reservationOrderRepository.save(reservationOrder);
+
+        if (reservationOrderDTO.getOrderItems() != null) {
+            ReservationOrder finalReservationOrder = reservationOrder;
+            reservationOrderDTO.getOrderItems().forEach(orderItemDTO -> {
+                orderItemService.addOrderItem(orderItemDTO, finalReservationOrder);
+            });
+        }
+
+        reservationOrderDTO.setId(reservationOrder.getId());
+        return reservationOrderDTO;
+    }
+
+    public List<ReservationOrderDTO> getAllReservations() {
+        List<ReservationOrder> reservations = reservationOrderRepository.findAll();
+        return reservations.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
 }

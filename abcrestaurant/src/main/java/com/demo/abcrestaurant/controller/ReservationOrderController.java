@@ -20,8 +20,18 @@ public class ReservationOrderController {
         return ResponseEntity.ok(reservationOrderService.createReservation(reservationOrderDTO));
     }
 
+    @PutMapping
+    public ResponseEntity<ReservationOrderDTO> updateReservation(@RequestBody ReservationOrderDTO reservationOrderDTO) {
+        return ResponseEntity.ok(reservationOrderService.updateReservation(reservationOrderDTO));
+    }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ReservationOrderDTO>> getReservationsByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(reservationOrderService.getReservationsByUserId(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReservationOrderDTO>> getAllReservations() {
+        return ResponseEntity.ok(reservationOrderService.getAllReservations());
     }
 }
