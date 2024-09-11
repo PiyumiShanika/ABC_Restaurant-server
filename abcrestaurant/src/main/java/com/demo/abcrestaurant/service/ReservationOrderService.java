@@ -8,6 +8,9 @@ import com.demo.abcrestaurant.repository.ReservationOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +26,9 @@ public class ReservationOrderService {
     @Transactional
     public ReservationOrderDTO createReservation(ReservationOrderDTO reservationOrderDTO) {
         ReservationOrder reservationOrder = new ReservationOrder();
-        reservationOrder.setDateTime(reservationOrderDTO.getDateTime());
-        reservationOrder.setType(reservationOrderDTO.getType());
+        reservationOrder.setDate(LocalDate.parse(reservationOrderDTO.getDate()));
+        reservationOrder.setTime(LocalTime.parse(reservationOrderDTO.getTime()));
+        reservationOrder.setType(ReservationOrder.OrderType.valueOf(reservationOrderDTO.getType()));
         reservationOrder.setStatus(ReservationOrder.OrderStatus.PENDING);
         reservationOrder.setGuestName(reservationOrderDTO.getGuestName());
         reservationOrder.setGuestEmail(reservationOrderDTO.getGuestEmail());
@@ -53,14 +57,14 @@ public class ReservationOrderService {
         List<OrderItemDTO> orderItems = reservationOrder.getOrderItems().stream()
                 .map(this::convertToOrderItemDTO)
                 .collect(Collectors.toList());
-        return new ReservationOrderDTO(reservationOrder.getDateTime(),
-                reservationOrder.getType(),
+        return new ReservationOrderDTO(reservationOrder.getDate(),
+                reservationOrder.getTime(),
+                reservationOrder.getType().name(),
                 reservationOrder.getStatus().name(),
                 reservationOrder.getGuestName(),
                 reservationOrder.getGuestEmail(),
                 reservationOrder.getGuestPhone(),
                 reservationOrder.getNumberOfPeople(),
-                reservationOrder.getUser().getId(),
                 orderItems,
                 reservationOrder.getId());
     }
@@ -75,8 +79,9 @@ public class ReservationOrderService {
 
     public ReservationOrderDTO updateReservation(ReservationOrderDTO reservationOrderDTO) {
         ReservationOrder reservationOrder = new ReservationOrder();
-        reservationOrder.setDateTime(reservationOrderDTO.getDateTime());
-        reservationOrder.setType(reservationOrderDTO.getType());
+        reservationOrder.setDate(LocalDate.parse(reservationOrderDTO.getDate()));
+        reservationOrder.setTime(LocalTime.parse(reservationOrderDTO.getTime()));
+        reservationOrder.setType(ReservationOrder.OrderType.valueOf(reservationOrderDTO.getType()));
         reservationOrder.setStatus(ReservationOrder.OrderStatus.COMPLETED);
         reservationOrder.setGuestName(reservationOrderDTO.getGuestName());
         reservationOrder.setGuestEmail(reservationOrderDTO.getGuestEmail());

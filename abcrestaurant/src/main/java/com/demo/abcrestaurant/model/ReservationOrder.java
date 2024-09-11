@@ -1,7 +1,10 @@
 package com.demo.abcrestaurant.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
@@ -23,7 +26,8 @@ public class ReservationOrder {
     private OrderType type; // DINE_IN or TAKEAWAY
 
     private int numberOfPeople;
-    private LocalDateTime dateTime;
+    private LocalDate date;
+    private LocalTime time;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // PENDING, CONFIRMED, COMPLETED
@@ -87,12 +91,20 @@ public class ReservationOrder {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public OrderStatus getStatus() {

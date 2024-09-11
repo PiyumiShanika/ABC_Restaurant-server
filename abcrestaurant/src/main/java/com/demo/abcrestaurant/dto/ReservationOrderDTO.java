@@ -1,32 +1,31 @@
 package com.demo.abcrestaurant.dto;
 
-import com.demo.abcrestaurant.model.ReservationOrder;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class ReservationOrderDTO {
 
     private Long id;
-    private LocalDateTime dateTime;
-    private ReservationOrder.OrderType type;
+    private String date;
+    private String time;
+    private String type;
     private String status;
     private String guestName;
     private String guestEmail;
     private String guestPhone;
     private int numberOfPeople;
-    private Long userId;
     private List<OrderItemDTO> orderItems;
 
-    public ReservationOrderDTO(LocalDateTime dateTime, ReservationOrder.OrderType type, String status, String guestName, String guestEmail, String guestPhone, int numberOfPeople, Long userId, List<OrderItemDTO> orderItems, Long id) {
-        this.dateTime = dateTime;
+    public ReservationOrderDTO(LocalDate date, LocalTime time, String type, String status, String guestName, String guestEmail, String guestPhone, int numberOfPeople, List<OrderItemDTO> orderItems, Long id) {
+        this.date = String.valueOf(date);
+        this.time = String.valueOf(time);
         this.type = type;
         this.status = status;
         this.guestName = guestName;
         this.guestEmail = guestEmail;
         this.guestPhone = guestPhone;
         this.numberOfPeople = numberOfPeople;
-        this.userId = userId;
         this.orderItems = orderItems;
         this.id = id;
     }
@@ -39,20 +38,28 @@ public class ReservationOrderDTO {
         this.id = id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = String.valueOf(date);
     }
 
-    public ReservationOrder.OrderType getType() {
-        return type;
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = String.valueOf(time);
     }
 
     public void setType(String type) {
-        this.type = ReservationOrder.OrderType.valueOf(type);
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getStatus() {
@@ -93,14 +100,6 @@ public class ReservationOrderDTO {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public List<OrderItemDTO> getOrderItems() {

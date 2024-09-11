@@ -1,6 +1,8 @@
 package com.demo.abcrestaurant.model;
 
 import jakarta.persistence.*;
+
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -79,7 +81,7 @@ public class User {
     }
 
     public enum Role {
-        ADMIN, STAFF, CUSTOMER
+        ADMIN, STAFF, CUSTOMER;
     }
 }
 
